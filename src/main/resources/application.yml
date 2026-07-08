@@ -1,0 +1,49 @@
+## Server properties ##
+server:
+    port: 8080
+    servlet:
+        context-path: /motogp
+
+## Spring properties ##
+spring:
+    application:
+        name: spring-jpa-criteria
+    profiles:
+        active: dev
+    mvc:
+        servlet:
+            path: /api
+    datasource:
+        type: com.zaxxer.hikari.HikariDataSource
+        driver-class-name: org.postgresql.Driver
+        url: jdbc:postgresql://${SPRING_DATASOURCE_HOST:localhost}:${SPRING_DATASOURCE_PORT:5432}/${SPRING_DATASOURCE_DATABASE:motogp}
+        username: ${SPRING_DATASOURCE_USERNAME:motogp}
+        password: ${SPRING_DATASOURCE_PASSWORD:motogp}
+    flyway:
+        enabled: true
+    jpa:
+        hibernate:
+            ddl-auto: validate
+        open-in-view: false
+        show-sql: true
+        properties:
+            hibernate:
+                format_sql: true
+
+## Management Properties ##
+management:
+    endpoints:
+        web:
+            exposure:
+                include: health
+
+---
+## Management Properties ##
+management:
+    endpoint:
+        health:
+            show-details: always
+spring:
+    config:
+        activate:
+            on-profile: dev
